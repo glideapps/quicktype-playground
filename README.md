@@ -1,6 +1,6 @@
 # quicktype Playground
 
-Please see blog.quicktype.io/playgrounds for details.
+Please see [blog.quicktype.io/playgrounds](https://blog.quicktype.io/playgrounds) for details.
 
 ## Develop and contribute
 
