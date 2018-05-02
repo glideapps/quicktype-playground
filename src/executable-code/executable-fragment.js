@@ -100,6 +100,7 @@ export default class ExecutableFragment extends ExecutableCodeTemplate {
   }
   
   onLanguageClick(event) {
+    event.preventDefault();
     this.update({
       language: event.target.innerText
     });
