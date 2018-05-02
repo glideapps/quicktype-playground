@@ -73,6 +73,7 @@ export default class ExecutableCode {
       }
     }
     const mountNode = document.createElement('div');
+    mountNode.className = "quicktype-playground";
     insertAfter(mountNode, targetNode);
 
     const view = ExecutableFragment.render(mountNode, {highlightOnly});
