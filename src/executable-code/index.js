@@ -2,13 +2,13 @@ import 'codemirror';
 import 'codemirror/lib/codemirror';
 import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/anyword-hint'
-import 'codemirror/mode/smalltalk/smalltalk'
+import 'codemirror/mode/go/go'
 import 'codemirror/addon/runmode/colorize';
 import 'codemirror/mode/clike/clike';
-import 'codemirror/mode/groovy/groovy';
-import 'codemirror/mode/xml/xml';
+import 'codemirror/mode/ruby/ruby';
+import 'codemirror/mode/swift/swift';
 import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/shell/shell';
+import 'codemirror/mode/elm/elm';
 import merge from 'deepmerge';
 import Set from 'es6-set/polyfill';
 import defaultConfig, {API_URLS} from '../config';
@@ -17,6 +17,10 @@ import WebDemoApi from "../webdemo-api";
 import TargetPlatform from '../target-platform'
 import ExecutableFragment from './executable-fragment';
 import '../styles.scss';
+
+import {languages} from "quicktype";
+
+const SKIP_LANUAGES = ["JavaScript"];
 
 const INITED_ATTRIBUTE_NAME = 'data-kotlin-playground-initialized';
 
@@ -36,6 +40,20 @@ export default class ExecutableCode {
     const code = targetNode.textContent.replace(/^\s+|\s+$/g, '');
     const cfg = merge(defaultConfig, config);
 
+    let topLevelName = targetNode.getAttribute('data-type-name');
+    topLevelName = topLevelName !== null ? topLevelName : "TopLevel";
+
+    let LANGUAGES =
+      languages
+        .filter(l => SKIP_LANUAGES.indexOf(l.displayName) === -1)
+        .filter(l => languages !== null && languages.indexOf(l.displayName))
+        .sort((a, b) => a.displayName < b.displayName ? -1 : 1);
+
+    let allowedLanguages = targetNode.getAttribute('data-languages');
+    if (allowedLanguages !== null) {
+      LANGUAGES = LANGUAGES.filter(l => allowedLanguages.indexOf(l.displayName) !== -1);
+    }
+        
     /*
       additionalLibs - setting additional JS-library
       Setting JQuery as default JS library
@@ -60,11 +78,14 @@ export default class ExecutableCode {
     const view = ExecutableFragment.render(mountNode, {highlightOnly});
     view.update({
       code: code,
+      language: "JSON",
+      topLevelName,
       compilerVersion: cfg.compilerVersion,
       highlightOnly: highlightOnly,
       targetPlatform: TargetPlatform.getById(targetPlatform),
       jsLibs: additionalLibs,
-      isFoldedButton: isFoldedButton
+      isFoldedButton: isFoldedButton,
+      languages: ["JSON", ...LANGUAGES.map(l => l.displayName)]
     });
 
     this.config = cfg;

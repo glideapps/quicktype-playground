@@ -273,13 +273,22 @@ $font-family-mono: 'Liberation Mono', Consolas, Menlo, Courier, monospace !globa
 }
 
 .compiler-info {
-  position: absolute;
-  right: 0;
+  text-align: right;
   font-size: 10px;
   color: #949494;
 
   span {
     margin-left: 15px;
+  }
+
+  .languages {
+    a {
+      margin: 0 4px;
+    }
+  }
+
+  span:last-child a {
+    color: #00b3a4;
   }
 }
 

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Kotlin Playground examples</title>
+  <title>quicktype Playground examples</title>
   <link rel="stylesheet" href="examples.css">
   <link rel="stylesheet" href="examples-highlight.css">
   <style>
@@ -11,256 +11,87 @@
 		margin: 50px auto;
 	}
   </style>
-  <script src="../playground.js" data-selector=".kotlin-code"></script>
+  <script src="../playground.js"></script>
 </head>
 <body class="markdown-body">
 
-# Kotlin Playground demo
+# quicktype Playground demo
 
 ## Automatic initialization
 
-Insert a `<script>` element into your page and specify what elements should be converted in its `data-selector` attribute.
+Insert a `<script>` element into your page:
 ```html
-<script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+<script src="https://unpkg.com/quicktype-playground@1"></script>
 ```
 
-For instance following block of Kotlin code:
+For instance following HTML element:
 
-```txt
-class Contact(val id: Int, var email: String) 
-
-fun main(args: Array<String>) {
-    val contact = Contact(1, "mary@gmail.com")
-    println(contact.id)                   
+```html
+<div class="quicktype" data-type-name="Person">
+{
+    "name": "Bob",
+    "age": 99,
+    "friends": ["Sue", "Vlad"]
 }
+</div>
 ```
 
 Turns into:
 
-<div class="kotlin-code">
+<div class="quicktype" data-type-name="Person">
 
-```kotlin
-class Contact(val id: Int, var email: String) 
-
-fun main(args: Array<String>) {
-    val contact = Contact(1, "mary@gmail.com")
-    println(contact.id)                   
+```json
+{
+    "name": "Bob",
+    "age": 99,
+    "friends": ["Sue", "Vlad"]
 }
 ```
 
 </div>
 
-You can also change target platform or disable run button using `data-highlight-only` and `data-target-platform` attributes
-
-<div class="kotlin-code" data-highlight-only>
-
-```kotlin
-fun main(args: Array<String>) {
-    println("Hello World!")
-}
-```
-
-</div>
-
-<div class="kotlin-code" data-target-platform="js">
-
-```kotlin
-fun sum(a: Int, b: Int): Int {
-    return a + b
-}
-
-fun main(args: Array<String>) {
-    print(sum(-1, 8))
-}
-```
-
-</div>
-
-
-Use `data-target-platform` attribute with value `junit` for creating examples with tests:
-
-<div class="kotlin-code" data-target-platform="junit">
-
-```kotlin
-import org.junit.Test
-import org.junit.Assert
-
-class TestExtensionFunctions() {
-    @Test fun testIntExtension() {
-        Assert.assertEquals("Rational number creation error: ", RationalNumber(4, 1), 4.r())
-    }
-
-    @Test fun testPairExtension() {
-        Assert.assertEquals("Rational number creation error: ", RationalNumber(2, 3), Pair(2, 3).r())
-    }
-}
-//sampleStart
-/*
-Then implement extension functions Int.r() and Pair.r() and make them convert Int and Pair to RationalNumber.
-*/
-fun Int.r(): RationalNumber = RationalNumber(this, 2)
-fun Pair<Int, Int>.r(): RationalNumber = RationalNumber(first, second)
-
-data class RationalNumber(val numerator: Int, val denominator: Int)
-//sampleEnd
-```
-</div>
-
-If you want to hide test classes in you code snippet just set the attribute `folded-button` to `false` value.
-
-Also you can mark arbitrary code by putting it between `[mark]your code[/mark]`.
-
-<div class="kotlin-code" data-target-platform="junit" folded-button="false">
-
-```kotlin
-import org.junit.Test
-import org.junit.Assert
-
-class TestLambdas() {
-    @Test fun contains() {
-        Assert.assertTrue("The result should be true if the collection contains an even number", 
-                          containsEven(listOf(1, 2, 3, 126, 555)))
-    }
-
-    @Test fun notContains() {
-        Assert.assertFalse("The result should be false if the collection doesn't contain an even number",
-                           containsEven(listOf(43, 33)))
-    }
-}
-//sampleStart
-/*
-Pass a lambda to any function to check if the collection contains an even number.
-The function any gets a predicate as an argument and returns true if there is at least one element satisfying the predicate.
-*/
-fun containsEven(collection: Collection<Int>): Boolean = collection.any {[mark]TODO()[/mark]}
-//sampleEnd
-```
-
-</div>
-
-Use `data-target-platform` attribute with value `canvas` for working with canvas in Kotlin:
-
-<div class="kotlin-code" data-target-platform="canvas">
-
-```kotlin
-package fancylines
-
-
-import jquery.*
-import org.w3c.dom.CanvasRenderingContext2D
-import org.w3c.dom.HTMLCanvasElement
-import kotlin.browser.document
-import kotlin.browser.window
-import kotlin.js.Math
-
-
-
-val canvas = initalizeCanvas()
-fun initalizeCanvas(): HTMLCanvasElement {
-    val canvas = document.createElement("canvas") as HTMLCanvasElement
-    val context = canvas.getContext("2d") as CanvasRenderingContext2D
-    context.canvas.width  = window.innerWidth.toInt();
-    context.canvas.height = window.innerHeight.toInt();
-    document.body!!.appendChild(canvas)
-    return canvas
-}
-
-class FancyLines() {
-    val context = canvas.getContext("2d") as CanvasRenderingContext2D
-    val height = canvas.height
-    val width = canvas.width
-    var x = width * Math.random()
-    var y = height * Math.random()
-    var hue = 0;
-
-    fun line() {
-        context.save();
-
-        context.beginPath();
-
-        context.lineWidth = 20.0 * Math.random();
-        context.moveTo(x, y);
-
-        x = width * Math.random();
-        y = height * Math.random();
-
-        context.bezierCurveTo(width * Math.random(), height * Math.random(),
-                width * Math.random(), height * Math.random(), x, y);
-
-        hue += (Math.random() * 10).toInt();
-
-        context.strokeStyle = "hsl($hue, 50%, 50%)";
-
-        context.shadowColor = "white";
-        context.shadowBlur = 10.0;
-
-        context.stroke();
-
-        context.restore();
-    }
-
-    fun blank() {
-        context.fillStyle = "rgba(255,255,1,0.1)";
-        context.fillRect(0.0, 0.0, width.toDouble(), height.toDouble());
-    }
-
-    fun run() {
-        window.setInterval({ line() }, 40);
-        window.setInterval({ blank() }, 100);
-    }
-}
-//sampleStart
-fun main(args: Array<String>) {
-     FancyLines().run()
-}
-//sampleEnd
-```
-
-</div>
-
-
-## Manual initialization
-
-If you want to init Kotlin Playground manually - omit `data-selector` attribute and call it when it's needed:
+Specify which languages to display with `data-languages`:
 
 ```html
-<script src="https://unpkg.com/kotlin-playground@1"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  KotlinPlayground('.code-blocks-selector');
-});
-</script>
-```
-
-<div>
-
-```text
-//sampleStart
-fun sum(a: Int, b: Int): Int {
-    return a + b
-}
-//sampleEnd
-
-fun main(args: Array<String>) {
-    print(sum(-1, 8))
-}
-```
-
+<div class="quicktype" data-type-name="Person" data-languages="C# Java Swift">
+...
 </div>
+```
 
-<button onclick="KotlinPlayground('.kotlin-code-2'); this.disabled = true; document.getElementById('kotlin-example').style.display = 'block';">Create</button>
+Turns into:
 
-<div id="kotlin-example" class="kotlin-code-2" style="display: none;">
+<div class="quicktype" data-type-name="Person" data-languages="C# Java Swift">
 
-```text
-//sampleStart
-fun sum(a: Int, b: Int): Int {
-    return a + b
-}
-//sampleEnd
-
-fun main(args: Array<String>) {
-    print(sum(-1, 8))
+```json
+{
+  "pokemon": [
+    {
+      "id": 1,
+      "num": "001",
+      "name": "Bulbasaur",
+      "img": "http://www.serebii.net/pokemongo/pokemon/001.png",
+      "type": [ "Grass", "Poison" ],
+      "weaknesses": [ "Fire", "Ice", "Flying", "Psychic" ],
+      "next_evolution": [
+        { "num": "002", "name": "Ivysaur" },
+        { "num": "003", "name": "Venusaur" }
+      ]
+    },
+    {
+      "id": 2,
+      "num": "002",
+      "name": "Ivysaur",
+      "img": "http://www.serebii.net/pokemongo/pokemon/002.png",
+      "type": [ "Grass", "Poison" ],
+      "weaknesses": [ "Fire", "Ice", "Flying", "Psychic" ],
+      "prev_evolution": [
+        { "num": "001", "name": "Bulbasaur" }
+      ],
+      "next_evolution": [
+        { "num": "003", "name": "Venusaur" }
+      ]
+    }
+  ]
 }
 ```
 

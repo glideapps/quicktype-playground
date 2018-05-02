@@ -1,14 +1,14 @@
 {
-  "name": "kotlin-playground",
-  "version": "1.4.0",
-  "description": "Self-contained component to embed in websites for running Kotlin code",
+  "name": "quicktype-playground",
+  "version": "1.0.0",
+  "description": "Self-contained component to embed in websites for generating code from JSON",
   "keywords": [
-    "kotlin",
-    "runnable code"
+    "quicktype",
+    "json"
   ],
-  "author": "JetBrains",
+  "author": "quicktype",
   "license": "Apache-2.0",
-  "repository": "JetBrains/kotlin-playground",
+  "repository": "quicktype/kotlin-playground",
   "main": "dist/playground.min.js",
   "files": [
     "dist"
@@ -57,5 +57,8 @@
     "copy-examples": "node utils/copy-examples",
     "release:ci": "rm -rf dist && npm run build:all && $NPM_TOKEN=%env.NPM_TOKEN% npm publish",
     "start": "webpack-dev-server --port 9000"
+  },
+  "dependencies": {
+    "quicktype": "^13.0.3"
   }
 }

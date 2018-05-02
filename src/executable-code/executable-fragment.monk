@@ -1,21 +1,19 @@
 {% import Exception from './exception.monk' %}
 
 <div class="executable-fragment-wrapper">
+    <div class="compiler-info">
+        <span class="languages">
+            {% for language of languages %}
+                <a href="#" :onclick={{ this.onLanguageClick.bind(this) }}>
+                    {{ language }}
+                </a>
+            {% endfor %}
+        </span>
+        <span>customize at <a href="https://app.quicktype.io/?playground" target="_blank">quicktype.io</a></span>
+    </div>
+
     <div class="executable-fragment">
         <div class="code-area {{ folded ? '_folded' : '_unfolded' }}">
-            {% if (isShouldBeFolded) %}
-                <div class="fold-button {{ foldButtonHover ? '_hover' : '' }}"
-                    :onmouseenter={{ this.onFoldButtonMouseEnter.bind(this) }}
-                    :onmouseleave={{ this.onFoldButtonMouseLeave.bind(this) }}>
-                </div>
-                <div class="zigzag _top {{ foldButtonHover ? '_hover' : '' }}"></div>
-                <div class="zigzag _bottom {{ foldButtonHover ? '_hover' : '' }}"></div>
-            {% endif %}
-
-            {% if (!highlightOnly) %}
-                <div class="run-button {{ waitingForOutput ? '_disabled' : ''}}" :onclick={{ this.execute.bind(this) }}></div>
-            {% endif %}
-
             <textarea></textarea>
         </div>
 
@@ -42,12 +40,5 @@
           {% endif %}
         </div>
     </div>
-
-    {% if (!highlightOnly) %}
-        <div class="compiler-info">
-            <span>Target platform: {{ targetPlatform.printableName }}</span>
-            <span>Running on kotlin v. {{ compilerVersion }}</span>
-        </div>
-    {% endif %}
 
 </div>

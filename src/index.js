@@ -29,7 +29,8 @@ create.discourse = function (selector) {
 // Auto initialization via data-selector <script> attribute
 const currentScript = getCurrentScript();
 const config = getConfigFromElement(currentScript);
-const {selector, discourseSelector} = config;
+let {selector, discourseSelector} = config;
+selector = selector || ".quicktype";
 
 if (selector || discourseSelector) {
   document.addEventListener('DOMContentLoaded', () => {
