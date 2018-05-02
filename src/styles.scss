@@ -2,6 +2,10 @@
 
 $font-family-mono: 'Liberation Mono', Consolas, Menlo, Courier, monospace !global;
 
+.quicktype-playground {
+  width: 100%;
+}
+
 .executable-fragment-wrapper {
   margin-bottom: 20px;
   position: relative;
@@ -274,8 +278,8 @@ $font-family-mono: 'Liberation Mono', Consolas, Menlo, Courier, monospace !globa
 
 .compiler-info {
   text-align: right;
-  font-size: 10px;
-  color: #949494;
+  font-size: 11px;
+  color: #666;
 
   span {
     margin-left: 15px;
@@ -284,6 +288,11 @@ $font-family-mono: 'Liberation Mono', Consolas, Menlo, Courier, monospace !globa
   .languages {
     a {
       margin: 0 4px;
+      color: inherit;
+      &.active, &:hover {
+        color: #00b3a4;
+        text-decoration: none;
+      }
     }
   }
 

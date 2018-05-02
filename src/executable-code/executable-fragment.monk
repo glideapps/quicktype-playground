@@ -3,9 +3,9 @@
 <div class="executable-fragment-wrapper">
     <div class="compiler-info">
         <span class="languages">
-            {% for language of languages %}
-                <a href="#" :onclick={{ this.onLanguageClick.bind(this) }}>
-                    {{ language }}
+            {% for lang of languages %}
+                <a href="#" :onclick={{ this.onLanguageClick.bind(this) }} class="{{ language === lang ? 'active' : '' }}">
+                    {{ lang }}
                 </a>
             {% endfor %}
         </span>
