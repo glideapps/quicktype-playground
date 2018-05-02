@@ -1,6 +1,6 @@
 {
   "name": "quicktype-playground",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Self-contained component to embed in websites for generating code from JSON",
   "keywords": [
     "quicktype",
