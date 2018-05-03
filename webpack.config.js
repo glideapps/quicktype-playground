@@ -4,10 +4,10 @@ const HtmlPlugin = require("html-webpack-plugin");
 
 module.exports = (params = {}) => {
   const isProduction = params.production;
-  const libraryName = 'KotlinPlayground';
   const env = isProduction ? "production" : "development";
   const mainEntryName = isProduction ? "playground.min" : "playground";
   const isServer = process.argv[1].includes("webpack-dev-server");
+  const libraryName = "QuicktypePlayground";
   const examplesPath = isServer ? "" : "examples/";
 
   const config = {
