@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <meta charset="UTF-8">
@@ -20,6 +21,7 @@
 ## Automatic initialization
 
 Insert a `<script>` element into your page:
+
 ```html
 <script src="https://unpkg.com/quicktype-playground@1"></script>
 ```
@@ -42,9 +44,9 @@ Turns into:
 
 ```json
 {
-    "name": "Bob",
-    "age": 99,
-    "friends": ["Sue", "Vlad"]
+  "name": "Bob",
+  "age": 99,
+  "friends": ["Sue", "Vlad"]
 }
 ```
 
@@ -70,8 +72,8 @@ Turns into:
       "num": "001",
       "name": "Bulbasaur",
       "img": "http://www.serebii.net/pokemongo/pokemon/001.png",
-      "type": [ "Grass", "Poison" ],
-      "weaknesses": [ "Fire", "Ice", "Flying", "Psychic" ],
+      "type": ["Grass", "Poison"],
+      "weaknesses": ["Fire", "Ice", "Flying", "Psychic"],
       "next_evolution": [
         { "num": "002", "name": "Ivysaur" },
         { "num": "003", "name": "Venusaur" }
@@ -82,14 +84,10 @@ Turns into:
       "num": "002",
       "name": "Ivysaur",
       "img": "http://www.serebii.net/pokemongo/pokemon/002.png",
-      "type": [ "Grass", "Poison" ],
-      "weaknesses": [ "Fire", "Ice", "Flying", "Psychic" ],
-      "prev_evolution": [
-        { "num": "001", "name": "Bulbasaur" }
-      ],
-      "next_evolution": [
-        { "num": "003", "name": "Venusaur" }
-      ]
+      "type": ["Grass", "Poison"],
+      "weaknesses": ["Fire", "Ice", "Flying", "Psychic"],
+      "prev_evolution": [{ "num": "001", "name": "Bulbasaur" }],
+      "next_evolution": [{ "num": "003", "name": "Venusaur" }]
     }
   ]
 }

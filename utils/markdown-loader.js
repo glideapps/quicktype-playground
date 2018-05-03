@@ -1,5 +1,5 @@
-const MarkdownIt = require('markdown-it');
-const highlightPreset = require('markdown-it-highlightjs');
+const MarkdownIt = require("markdown-it");
+const highlightPreset = require("markdown-it-highlightjs");
 
 const md = new MarkdownIt({
   html: true

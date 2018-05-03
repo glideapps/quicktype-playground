@@ -1,18 +1,14 @@
 {
   "name": "quicktype-playground",
   "version": "1.0.4",
-  "description": "Self-contained component to embed in websites for generating code from JSON",
-  "keywords": [
-    "quicktype",
-    "json"
-  ],
+  "description":
+    "Self-contained component to embed in websites for generating code from JSON",
+  "keywords": ["quicktype", "json"],
   "author": "quicktype",
   "license": "Apache-2.0",
   "repository": "quicktype/quicktype-playground",
   "main": "dist/playground.min.js",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "devDependencies": {
     "babel-core": "6.25.0",
     "babel-loader": "7.1.0",
@@ -55,7 +51,9 @@
     "build:all": "npm run build && npm run build:production",
     "build:production": "webpack -p --env.production",
     "copy-examples": "node utils/copy-examples",
-    "release:ci": "rm -rf dist && npm run build:all && $NPM_TOKEN=%env.NPM_TOKEN% npm publish",
+    "release:ci":
+      "rm -rf dist && npm run build:all && $NPM_TOKEN=%env.NPM_TOKEN% npm publish",
+    "release": "rm -rf dist && npm run build:all && npm publish",
     "start": "webpack-dev-server --port 9000"
   },
   "dependencies": {

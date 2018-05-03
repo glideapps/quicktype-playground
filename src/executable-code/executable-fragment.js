@@ -1,64 +1,54 @@
-import {languages, quicktype} from 'quicktype';
-import merge from 'deepmerge';
-import CodeMirror from 'codemirror';
-import Monkberry from 'monkberry';
-import directives from 'monkberry-directives';
-import 'monkberry-events';
-import ExecutableCodeTemplate from './executable-fragment.monk';
-import WebDemoApi from '../webdemo-api';
-import TargetPlatform from "../target-platform";
-import getJsExecutor from "../js-executor"
-import {countLines, unEscapeString} from "../utils";
-import escapeStringRegexp from "escape-string-regexp"
-import ComplectionView from "../complection-view";
-
-const SAMPLE_START = '//sampleStart';
-const SAMPLE_END = '//sampleEnd';
-const MARK_PLACEHOLDER_OPEN = "[mark]";
-const MARK_PLACEHOLDER_CLOSE = "[/mark]";
-const CANVAS_PLACEHOLDER_OUTPUT_CLASS = ".js-code-output-canvas-placeholder";
+import { languages, quicktype } from "quicktype";
+import merge from "deepmerge";
+import CodeMirror from "codemirror";
+import Monkberry from "monkberry";
+import directives from "monkberry-directives";
+import "monkberry-events";
+import ExecutableCodeTemplate from "./executable-fragment.monk";
+import { countLines, unEscapeString } from "../utils";
+import escapeStringRegexp from "escape-string-regexp";
 
 const LANGUAGE_MODE = {
   "C#": "text/x-csharp",
   "JSON Schema": "application/ld+json",
-  "JavaScript": "text/javascript",
-  "TypeScript": "text/typescript",
+  JavaScript: "text/javascript",
+  TypeScript: "text/typescript",
   "Objective-C": "text/x-objectivec",
-  "Java": "text/x-java",
-  "Flow": "text/javascript",
-  "JSON": "application/ld+json",
-  "Swift": "text/x-swift",
-  "Ruby": "text/x-ruby",
+  Java: "text/x-java",
+  Flow: "text/javascript",
+  JSON: "application/ld+json",
+  Swift: "text/x-swift",
+  Ruby: "text/x-ruby",
   "C++": "text/x-c++hdr",
-  "Elm": "text/x-elm",
-  "Go": "text/x-go",
-  "Rust": "text/x-c",
+  Elm: "text/x-elm",
+  Go: "text/x-go",
+  Rust: "text/x-c"
 };
 
 const LANGUAGE_OPTIONS = {
-  "TypeScript": { "just-types": true },
-  "Ruby": { "just-types": true },
-  "Elm": { "just-types": true },
-  "Go": { "just-types": true },
+  TypeScript: { "just-types": true },
+  Ruby: { "just-types": true },
+  Elm: { "just-types": true },
+  Go: { "just-types": true },
   "Objective-C": { "just-types": true, features: "interface" },
-  "Java": { "just-types": true },
-  "Flow": { "just-types": true },
+  Java: { "just-types": true },
+  Flow: { "just-types": true },
   "C++": { "just-types": true },
-  "Rust": { "just-types": true },
+  Rust: { "just-types": true },
   "C#": { features: "attributes-only" },
-  "Swift": { initializers: false },
+  Swift: { initializers: false }
 };
 
 export default class ExecutableFragment extends ExecutableCodeTemplate {
   static render(element, options = {}) {
     const instance = Monkberry.render(ExecutableFragment, element, {
-      'directives': directives
+      directives: directives
     });
 
     instance.arrayClasses = [];
     instance.initialized = false;
     instance.state = {
-      code: '',
+      code: "",
       foldButtonHover: false,
       folded: true,
       output: null
@@ -70,7 +60,6 @@ export default class ExecutableFragment extends ExecutableCodeTemplate {
   update(state) {
     this.state = merge.all([this.state, state]);
 
-    let platform = this.state.targetPlatform;
     const json = this.state.code;
 
     super.update(this.state);
@@ -98,7 +87,7 @@ export default class ExecutableFragment extends ExecutableCodeTemplate {
       });
     }
   }
-  
+
   onLanguageClick(event) {
     event.preventDefault();
     this.update({
@@ -107,17 +96,17 @@ export default class ExecutableFragment extends ExecutableCodeTemplate {
   }
 
   getCode() {
-    return this.codemirror.getValue()
+    return this.codemirror.getValue();
   }
 
   initializeCodeMirror(options = {}) {
-    const textarea = this.nodes[0].getElementsByTagName('textarea')[0];
+    const textarea = this.nodes[0].getElementsByTagName("textarea")[0];
     const readOnly = true;
     const codemirrorOptions = {
       readOnly,
       lineNumbers: true,
       indentUnit: 4,
-      viewportMargin: Infinity,
+      viewportMargin: Infinity
     };
 
     // Workaround to allow copy code in read-only mode
