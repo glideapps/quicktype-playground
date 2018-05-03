@@ -20,7 +20,7 @@ import { languages } from "quicktype";
 
 const SKIP_LANUAGES = ["JavaScript"];
 
-const INITED_ATTRIBUTE_NAME = "data-kotlin-playground-initialized";
+const INITED_ATTRIBUTE_NAME = "data-quicktype-playground-initialized";
 
 export default class ExecutableCode {
   /**
@@ -125,7 +125,7 @@ export default class ExecutableCode {
         // Skip empty and already initialized nodes
         if (
           node.textContent.trim() === "" ||
-          node.getAttribute("data-kotlin-playground-initialized") === "true"
+          node.getAttribute("data-quicktype-playground-initialized") === "true"
         ) {
           return;
         }
