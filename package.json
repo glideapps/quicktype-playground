@@ -1,6 +1,6 @@
 {
   "name": "quicktype-playground",
-  "version": "1.0.4",
+  "version": "1.1.1",
   "description":
     "Self-contained component to embed in websites for generating code from JSON",
   "keywords": ["quicktype", "json"],
@@ -57,6 +57,6 @@
     "start": "webpack-dev-server --port 9000"
   },
   "dependencies": {
-    "quicktype": "^13.0.3"
+    "quicktype": "^13.0.10"
   }
 }

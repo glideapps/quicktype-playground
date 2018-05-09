@@ -22,6 +22,7 @@ const LANGUAGE_MODE = {
   "C++": "text/x-c++hdr",
   Elm: "text/x-elm",
   Go: "text/x-go",
+  Kotlin: "text/x-kotlin",
   Rust: "text/x-c"
 };
 
