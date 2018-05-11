@@ -1,4 +1,4 @@
-import { languages, quicktype } from "quicktype";
+import { quicktype } from "quicktype-core";
 import merge from "deepmerge";
 import CodeMirror from "codemirror";
 import Monkberry from "monkberry";

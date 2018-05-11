@@ -16,7 +16,7 @@ import { arrayFrom, getConfigFromElement, insertAfter } from "../utils";
 import ExecutableFragment from "./executable-fragment";
 import "../styles.scss";
 
-import { languages } from "quicktype";
+import { defaultTargetLanguages } from "quicktype-core";
 
 const SKIP_LANUAGES = ["JavaScript"];
 
@@ -36,9 +36,13 @@ export default class ExecutableCode {
     let topLevelName = targetNode.getAttribute("data-type-name");
     topLevelName = topLevelName !== null ? topLevelName : "TopLevel";
 
-    let LANGUAGES = languages
+    let LANGUAGES = defaultTargetLanguages
       .filter(l => SKIP_LANUAGES.indexOf(l.displayName) === -1)
-      .filter(l => languages !== null && languages.indexOf(l.displayName))
+      .filter(
+        l =>
+          defaultTargetLanguages !== null &&
+          defaultTargetLanguages.indexOf(l.displayName)
+      )
       .sort((a, b) => (a.displayName < b.displayName ? -1 : 1));
 
     let allowedLanguages = targetNode.getAttribute("data-languages");

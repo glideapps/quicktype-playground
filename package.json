@@ -57,6 +57,6 @@
     "start": "webpack-dev-server --port 9000"
   },
   "dependencies": {
-    "quicktype": "^13.0.10"
+    "quicktype-core": "^0.0.5"
   }
 }
