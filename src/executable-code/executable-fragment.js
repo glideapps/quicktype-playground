@@ -1,4 +1,4 @@
-import { quicktype } from "quicktype-core";
+import * as qt from "quicktype-core";
 import merge from "deepmerge";
 import CodeMirror from "codemirror";
 import Monkberry from "monkberry";
@@ -36,6 +36,7 @@ const LANGUAGE_OPTIONS = {
   Flow: { "just-types": true },
   "C++": { "just-types": true },
   Rust: { "just-types": true },
+  Kotlin: { framework: "just-types" },
   "C#": { features: "attributes-only" },
   Swift: { initializers: false }
 };
@@ -73,19 +74,27 @@ export default class ExecutableFragment extends ExecutableCodeTemplate {
     if (this.state.language === "JSON") {
       this.codemirror.setValue(json);
     } else {
-      quicktype({
-        lang: this.state.language,
-        sources: [
-          {
-            kind: "json",
-            name: this.state.topLevelName || "TopLevel",
-            samples: [json]
-          }
-        ],
-        rendererOptions: LANGUAGE_OPTIONS[this.state.language]
-      }).then(result => {
-        this.codemirror.setValue(result.lines.join("\n").trim());
-      });
+      const input = qt.jsonInputForTargetLanguage(this.state.language);
+      input
+        .addSource({
+          name: this.state.topLevelName || "TopLevel",
+          samples: [json]
+        })
+        .then(result => {
+          const inputData = new qt.InputData();
+          inputData.addInput(input);
+          inputData.finishAddingInputs().then(result => {
+            qt
+              .quicktype({
+                lang: this.state.language,
+                inputData: input,
+                rendererOptions: LANGUAGE_OPTIONS[this.state.language]
+              })
+              .then(result => {
+                this.codemirror.setValue(result.lines.join("\n").trim());
+              });
+          });
+        });
     }
   }
 
