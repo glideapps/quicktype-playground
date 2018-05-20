@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlPlugin = require("html-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = (params = {}) => {
   const isProduction = params.production;
@@ -100,6 +101,17 @@ module.exports = (params = {}) => {
       contentBase: path.resolve(__dirname, "src")
     }
   };
+
+  if (isProduction) {
+    config.plugins.unshift(
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          ecma: 6,
+          sourceMap: false
+        }
+      })
+    );
+  }
 
   return config;
 };
